@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>To-Do List Application</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3>To-Do List</h3>
+        </div>
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <input type="text" id="taskTitle" class="form-control" placeholder="Task Title" required>
+                <input type="text" id="taskDescription" class="form-control" placeholder="Task Description">
+                
+                <!-- Priority Dropdown -->
+                <select id="taskPriority" class="form-control">
+                    <option value="" disabled selected>Select Priority</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+                
+                <input type="date" id="taskDeadline" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-success" id="addTaskButton">Add Task</button>
+                </div>
+            </div>
+            <div id="message" class="alert" style="display: none;"></div>
+            <table class="table table-bordered" id="taskTable">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Deadline</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Tasks will be added here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-center">
+            <p>&copy; <span id="year"></span> | Josaminep To-Do List Application</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    const taskTable = document.getElementById('taskTable').getElementsByTagName('tbody')[0];
+    const messageDiv = document.getElementById('message');
+
+    document.getElementById('addTaskButton').addEventListener('click', function() {
+        const title = document.getElementById('taskTitle').value;
+        const description = document.getElementById('taskDescription').value;
+        const priority = document.getElementById('taskPriority').value;
+        const deadline = document.getElementById('taskDeadline').value;
+
+        if (!title) {
+            showMessage('Task title is required.', 'alert-danger');
+            return;
+        }
+
+        if (!priority) {
+            showMessage('Please select a priority.', 'alert-danger');
+            return;
+        }
+
+        const newRow = taskTable.insertRow();
+        newRow.innerHTML = `
+            <td>${htmlEscape(title)}</td>
+            <td>${htmlEscape(description)}</td>
+            <td>${htmlEscape(priority)}</td>
+            <td>${htmlEscape(deadline)}</td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="deleteTask(this)">Delete</button>
+            </td>
+        `;
+
+        clearInputs();
+        showMessage('Task added successfully!', 'alert-success');
+    });
+
+    function deleteTask(button) {
+        const row = button.closest('tr');
+        row.remove();
+        showMessage('Task deleted successfully!', 'alert-warning');
+    }
+
+    function clearInputs() {
+        document.getElementById('taskTitle').value = '';
+        document.getElementById('taskDescription').value = '';
+        document.getElementById('taskPriority').selectedIndex = 0; // Reset dropdown
+        document.getElementById('taskDeadline').value = '';
+    }
+
+    function showMessage(message, alertClass) {
+        messageDiv.className = `alert ${alertClass}`;
+        messageDiv.innerText = message;
+        messageDiv.style.display = 'block';
+
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 3000);
+    }
+
+    function htmlEscape(str) {
+        return str.replace(/&/g, "&amp;")
+                  .replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;")
+                  .replace(/"/g, "&quot;")
+                  .replace(/'/g, "&#039;");
+    }
+</script>
+</body>
+</html>
