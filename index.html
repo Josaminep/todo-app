@@ -12,6 +12,24 @@
         .card {
             margin-top: 50px;
         }
+        .input-group {
+            flex-wrap: wrap; /* Allow items to wrap */
+        }
+        .input-group .form-control {
+            margin: 5px 0; /* Add some spacing between input fields */
+            flex: 1 0 45%; /* Allow inputs to grow but take up to 45% of the row */
+        }
+        .input-group-append {
+            flex: 0 0 100%; /* Make the button full width on mobile */
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        @media (min-width: 576px) {
+            .input-group .form-control {
+                margin: 0 5px; /* Reset margin for larger screens */
+            }
+        }
     </style>
 </head>
 <body>
@@ -34,12 +52,12 @@
                 </select>
                 
                 <input type="date" id="taskDeadline" class="form-control">
-                <div class="input-group-append">
-                    <button class="btn btn-success" id="addTaskButton">Add Task</button>
-                </div>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-success" id="addTaskButton">Add Task</button>
             </div>
             <div id="message" class="alert" style="display: none;"></div>
-            <table class="table table-bordered" id="taskTable">
+            <table class="table table-bordered mt-3" id="taskTable">
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -55,7 +73,7 @@
             </table>
         </div>
         <div class="card-footer text-center">
-            <p>&copy; <span id="year"></span> | Josaminep To-Do List Application</p>
+            <p>&copy; <span id="year"></span> - Simple To-Do List Application</p>
         </div>
     </div>
 </div>
