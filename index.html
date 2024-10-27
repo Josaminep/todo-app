@@ -25,6 +25,9 @@
             justify-content: center;
             margin-top: 10px;
         }
+        .table-responsive {
+            margin-top: 20px; /* Add space above the table */
+        }
         @media (min-width: 576px) {
             .input-group .form-control {
                 margin: 0 5px; /* Reset margin for larger screens */
@@ -57,20 +60,24 @@
                 <button class="btn btn-success" id="addTaskButton">Add Task</button>
             </div>
             <div id="message" class="alert" style="display: none;"></div>
-            <table class="table table-bordered mt-3" id="taskTable">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Priority</th>
-                        <th>Deadline</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Tasks will be added here -->
-                </tbody>
-            </table>
+            
+            <!-- Responsive Table -->
+            <div class="table-responsive">
+                <table class="table table-bordered mt-3" id="taskTable">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Priority</th>
+                            <th>Deadline</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Tasks will be added here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="card-footer text-center">
             <p>&copy; <span id="year"></span> - Simple To-Do List Application</p>
