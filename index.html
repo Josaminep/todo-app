@@ -13,25 +13,21 @@
             margin-top: 50px;
         }
         .input-group {
-            flex-wrap: wrap; /* Allow items to wrap */
-        }
-        .input-group .form-control {
-            margin: 5px 0; /* Add some spacing between input fields */
-            flex: 1 0 45%; /* Allow inputs to grow but take up to 45% of the row */
-        }
-        .input-group-append {
-            flex: 0 0 100%; /* Make the button full width on mobile */
             display: flex;
-            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .input-group .form-control,
+        .input-group select {
+            flex: 1 1 calc(50% - 10px); /* Half width, minus gap */
+            min-width: 200px; /* Ensures inputs stack on small screens */
+        }
+        .input-group button {
+            flex: 1 1 100%; /* Full width for button */
             margin-top: 10px;
         }
         .table-responsive {
-            margin-top: 20px; /* Add space above the table */
-        }
-        @media (min-width: 576px) {
-            .input-group .form-control {
-                margin: 0 5px; /* Reset margin for larger screens */
-            }
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -45,23 +41,16 @@
             <div class="input-group mb-3">
                 <input type="text" id="taskTitle" class="form-control" placeholder="Task Title" required>
                 <input type="text" id="taskDescription" class="form-control" placeholder="Task Description">
-                
-                <!-- Priority Dropdown -->
                 <select id="taskPriority" class="form-control">
                     <option value="" disabled selected>Select Priority</option>
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
                     <option value="Low">Low</option>
                 </select>
-                
                 <input type="date" id="taskDeadline" class="form-control">
-            </div>
-            <div class="input-group-append">
                 <button class="btn btn-success" id="addTaskButton">Add Task</button>
             </div>
             <div id="message" class="alert" style="display: none;"></div>
-            
-            <!-- Responsive Table -->
             <div class="table-responsive">
                 <table class="table table-bordered mt-3" id="taskTable">
                     <thead>
@@ -131,7 +120,7 @@
     function clearInputs() {
         document.getElementById('taskTitle').value = '';
         document.getElementById('taskDescription').value = '';
-        document.getElementById('taskPriority').selectedIndex = 0; // Reset dropdown
+        document.getElementById('taskPriority').selectedIndex = 0;
         document.getElementById('taskDeadline').value = '';
     }
 
